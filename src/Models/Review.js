@@ -16,7 +16,17 @@ const reviewSchema = new mongoose.Schema(
         required: true,
       },
     ],
-    votes: {},
+    votes: {
+      type: Map,
+      of: new mongoose.Schema(
+        {
+          type: { type: String, enum: ["like", "dislike"], required: true },
+          date: { type: Date, default: Date.now },
+        },
+        { _id: false } 
+      ),
+      default: {},
+    },
   },
   { timestamps: true }
 );
