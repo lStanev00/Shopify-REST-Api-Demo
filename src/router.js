@@ -1,10 +1,12 @@
 import { Router } from "express";
+import reviewsController from "./controllers/reviews-ctrl";
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.send('API is running');
-});
+router.use(`/`, reviewsController);
 
+router.use("/", (req, res) => {
+    res.status(404).send("The API don't support this route yet").end();
+})
 
 export default router;
