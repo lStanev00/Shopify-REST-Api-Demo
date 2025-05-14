@@ -36,7 +36,7 @@ export function startBackgroundTask(fn, ms) {
       const success = await fn();
       if (success) {
         timeNow = getBGTime();
-        console.log(timeNow + `Function : ${fn.name} has started!`);
+        console.log(timeNow + `Function : ${fn.name} has ended!`);
       }
       await delay(ms);
     }
