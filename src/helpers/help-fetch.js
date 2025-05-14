@@ -113,6 +113,8 @@ export const storefront = {
       slug: product.handle,
       price: product.variants?.edges[0]?.node?.price,
     };
+    const images = product.images?.edges.map(edge => edge.node.url);
+    result.media = images;
 
     return result;
   },
