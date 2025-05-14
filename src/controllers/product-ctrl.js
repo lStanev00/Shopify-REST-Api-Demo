@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { storefront } from "../helpers/help-fetch";
+import { storefront } from "../helpers/help-fetch.js";
 
 const productCtrl = Router();
 

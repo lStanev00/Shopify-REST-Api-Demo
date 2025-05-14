@@ -21,6 +21,4 @@ app.use(`/`, router);
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
 });
-// startBackgroundTask(updateItems, 86400000);
-
-console.log(await storefront.fetchProductByHandle(`belgian-hazelnut-cookie`));
+startBackgroundTask(updateItems, 86400000);
