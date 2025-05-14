@@ -15,8 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use(`/`, router);
 
-startBackgroundTask(updateItems, 86400000);
 
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
 });
+startBackgroundTask(updateItems, 86400000);
