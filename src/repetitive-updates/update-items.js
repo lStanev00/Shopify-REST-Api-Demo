@@ -34,11 +34,11 @@ export function startBackgroundTask(fn, ms) {
       let timeNow = getBGTime();
       console.log(timeNow + `Function : ${fn.name} has started!`);
       const success = await fn();
-      await delay(ms);
       if (success) {
         timeNow = getBGTime();
         console.log(timeNow + `Function : ${fn.name} has started!`);
       }
+      await delay(ms);
     }
   })();
 }
