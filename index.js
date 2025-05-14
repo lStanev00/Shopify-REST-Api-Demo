@@ -8,6 +8,7 @@ import { startBackgroundTask, updateItems } from './src/repetitive-updates/updat
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', true);
 const PORT = process.env.PORT || 8080;
 await connectDB();
 
