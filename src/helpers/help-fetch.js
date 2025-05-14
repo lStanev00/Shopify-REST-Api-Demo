@@ -6,35 +6,8 @@ export const storefront = {
   fetchShopifyProducts: async function () {
     const endpoint = `${storefrontDomain}/api/2023-10/graphql.json`;
 
-    const query = `
-        {
-          products(first: 10) {
-            edges {
-              node {
-                id
-                title
-                description
-                images(first: 1) {
-                  edges {
-                    node {
-                      url
-                    }
-                  }
-                }
-                variants(first: 1) {
-                  edges {
-                    node {
-                      price {
-                        amount
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-    `;
+const query = `{ products(first: 10) { edges { node { id title handle description images(first: 1) { edges { node { url } } } variants(first: 1) { edges { node { id price { amount } } } } } } } }`;
+
 
     const res = await fetch(endpoint, {
       method: "POST",
@@ -53,7 +26,8 @@ export const storefront = {
 
     for (const product of json) {
       const id = product.id.replace(`gid://shopify/Product/`, ``);
-      result.push(id);
+      const slug = product.handle;
+      result.push({itemId:id, slug:slug});
     }
     return result;
   },
@@ -77,6 +51,7 @@ export const storefront = {
           variants(first: 1) {
             edges {
               node {
+                id
                 price {
                   amount
                   currencyCode
@@ -106,15 +81,18 @@ export const storefront = {
 
     if (!product) return null;
 
+    const variantNode = product.variants?.edges[0]?.node;
+    const variantId = variantNode?.id?.split("/").pop();
+
     const result = {
       id: product.id.replace("gid://shopify/Product/", ""),
       title: product.title,
       description: product.description,
       slug: product.handle,
-      price: product.variants?.edges[0]?.node?.price,
+      price: variantNode?.price,
+      variantId: variantId || null,
+      media: product.images?.edges.map((edge) => edge.node.url) || [],
     };
-    const images = product.images?.edges.map(edge => edge.node.url);
-    result.media = images;
 
     return result;
   },

@@ -8,15 +8,15 @@ export async function updateItems() {
     const actualItems = await storefront.fetchShopifyProducts();
     const localItems = await Product.find().lean();
 
-    for (const id of actualItems) {
+    for (const product of actualItems) {
       let exist = localItems.find((item) => {
         const itemId = item.productId;
-        return itemId == id;
+        return itemId == product.productId;
       });
 
       if (exist) continue;
 
-      const newProduct = new Product({ productId: id });
+      const newProduct = new Product({ productId: product.productId, slug: product.slug });
       await newProduct.save();
       await delay(350);
     }

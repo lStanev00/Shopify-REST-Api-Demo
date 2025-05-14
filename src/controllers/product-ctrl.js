@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { storefront } from "../helpers/help-fetch.js";
+import Product from "../Models/Product.js";
 
 const productCtrl = Router();
 
@@ -11,6 +12,7 @@ async function getProduct(req, res) {
   try {
     const data = await storefront.fetchProductByHandle(name);
     if (data) {
+      // await Product.find({productId:})
       return res.status(200).json(data);
     }
     return res.status(500).end();
