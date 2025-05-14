@@ -30,14 +30,19 @@ async function postReview(req, res) {
 
 async function reactToReview(req, res) {
     try {
+        const visitorId = req?.headers['x-visitor-id'];
+        if(!visitorId) return res.status(403).end();
+
         const { id } = req.params;
         const { type } = req.body; 
         const review = await Review.findById(id);
     
         if (!review) return res.status(404).json({ error: 'Review not found' });
-    
-        if (type === 'like') review.likes++;
-        if (type === "dislike") review.dislikes++;
+
+        
+        if(review?.votes[visitorId]?.type == type) delete review.votes[visitorId]
+        else if (type === 'like') review.votes[visitorId] = {type:"liked"}
+        else if (type === "dislike") review.votes[visitorId] = {type:"dislike"}
     
         await review.save();
         res.json(review);
