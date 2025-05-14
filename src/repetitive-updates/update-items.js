@@ -10,7 +10,7 @@ export async function updateItems() {
 
     for (const product of actualItems) {
       let exist = localItems.find((item) => {
-        const itemId = item.productId;
+        const itemId = item.itemId;
         return itemId == product.productId;
       });
 
