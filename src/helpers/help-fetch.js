@@ -1,5 +1,5 @@
 import { configDotenv } from "dotenv";
-configDotenv({path:"./../../"});
+configDotenv();
 
 const storefrontDomain = `https://${process.env.SHOPIFY_STORE_DOMAIN}`;
 export const storefront = {
@@ -56,5 +56,52 @@ export const storefront = {
       result.push(id);
     }
     return result;
+  },
+  fetchProductByHandle: async function (handle) {
+    const endpoint = `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2023-10/graphql.json`;
+
+    const query = `
+      query getProductByHandle($handle: String!) {
+        productByHandle(handle: $handle) {
+          id
+          title
+          description
+          handle
+          images(first: 1) {
+            edges {
+              node {
+                url
+              }
+            }
+          }
+          variants(first: 1) {
+            edges {
+              node {
+                price {
+                  amount
+                  currencyCode
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token":
+          process.env.SHOPIFY_STOREFRONT_TOKEN,
+      },
+      body: JSON.stringify({
+        query,
+        variables: { handle },
+      }),
+    });
+
+    const json = await response.json();
+    return json.data?.productByHandle || null;
   },
 };

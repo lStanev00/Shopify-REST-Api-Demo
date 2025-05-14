@@ -4,6 +4,7 @@ import router from './src/router.js';
 import dotenv from "dotenv";
 import { connectDB } from './src/helpers/mongoose-helpers.js';
 import { startBackgroundTask, updateItems } from './src/repetitive-updates/update-items.js';
+import { storefront } from './src/helpers/help-fetch.js';
 
 dotenv.config();
 
@@ -20,4 +21,6 @@ app.use(`/`, router);
 app.listen(PORT, () => {
     console.log(`Server listening on http://localhost:${PORT}`);
 });
-startBackgroundTask(updateItems, 86400000);
+// startBackgroundTask(updateItems, 86400000);
+
+console.log(await storefront.fetchProductByHandle(`belgian-hazelnut-cookie`));
