@@ -102,6 +102,15 @@ export const storefront = {
     });
 
     const json = await response.json();
-    return json.data?.productByHandle || null;
+
+    const result = {
+      id: json?.id.replace(`gid://shopify/Product/`, ``),
+      title: json?.title,
+      description: json?.description,
+      slug: json?.handle,
+      price: json?.variants?.edges[0]?.node?.price,
+
+    }
+    return result || null;
   },
 };
