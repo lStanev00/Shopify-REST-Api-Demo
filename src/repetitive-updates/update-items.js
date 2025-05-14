@@ -16,7 +16,7 @@ export async function updateItems() {
 
       if (exist) continue;
 
-      const newProduct = new Product({ productId: product.productId, slug: product.slug });
+      const newProduct = new Product({ productId: product.itemId, slug: product.slug });
       await newProduct.save();
       await delay(350);
     }
