@@ -1,13 +1,27 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema(
+  {
     productId: { type: String, required: true },
-    reviews: [{
+    reviews: [
+      {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Review",
-        required: false
-    }]
+        required: false,
+      },
+    ],
+  },
+  { timestamps: true }
+);
+
+productSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "product",
 });
+
+productSchema.set("toObject", { virtuals: true });
+productSchema.set("toJSON", { virtuals: true });
 
 const Product = mongoose.model(`Product`, productSchema);
 export default Product;
