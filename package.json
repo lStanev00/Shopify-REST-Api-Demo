@@ -1,0 +1,22 @@
+{
+  "name": "shopify-rest-api-demo",
+  "version": "1.0.0",
+  "description": "Demo project showcasing a React-based product review widget integrated into a Shopify product page.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lStanev00/Shopify-REST-Api-Demo.git"
+  },
+  "author": "Lachezar Stanev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lStanev00/Shopify-REST-Api-Demo/issues"
+  },
+  "homepage": "https://github.com/lStanev00/Shopify-REST-Api-Demo#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
