@@ -10,13 +10,13 @@ export async function updateItems() {
 
     for (const id of actualItems) {
       let exist = localItems.find((item) => {
-        const itemId = item._id;
+        const itemId = item.productId;
         return itemId == id;
       });
 
       if (exist) continue;
 
-      const newProduct = new Product({ _id: id, productId: id });
+      const newProduct = new Product({ productId: id });
       await newProduct.save();
       await delay(350);
     }
