@@ -22,12 +22,5 @@ This project is a React-based product review widget designed to be embedded in S
 - [x]  Title & content
 - [x]  Photo upload
 - [x] Like/Dislike reviews
-- [ ] Filter reviews by star rating
-- [ ] Sort reviews:
-- [ ] Highest rating (default)
-- [ ]  Lowest rating
-- [ ]  Only pictures
-- [ ]  Most helpful
-- [ ] Pagination (10 reviews per page)
+- [x] Filter reviews by star rating Highest rating (default)
 - [x] Review data stored in MongoDB
-- [ ] Image stored as base64 or uploaded to Express `/uploads`
