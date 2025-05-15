@@ -86,7 +86,7 @@ async function reactToReview(req, res) {
     if (trigger) review.markModified("votes");
 
     await review.save();
-    delay(500)
+    delay(100)
     const newObj = await Review.findById(review._id).lean();
     res.status(200).json(newObj);
   } catch (err) {
