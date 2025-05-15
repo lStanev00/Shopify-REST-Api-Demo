@@ -11,7 +11,9 @@ reviewsController.patch("/reviews/:id/react", reactToReview);
 async function getReviews(req, res) {
   try {
     const { productId } = req.params;
-    const reviews = await Review.findOne({ product: productId });
+    const product = await Product.findOne({productId: productId});
+    if (product) throw new Error(`no product:  ${productId}`);
+    const reviews = await Review.findOne({ product: product._id });
     res.json(reviews);
   } catch (err) {
     console.warn(err)
