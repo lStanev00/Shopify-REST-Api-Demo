@@ -14,6 +14,7 @@ async function getReviews(req, res) {
     const reviews = await Review.findOne({ product: productId });
     res.json(reviews);
   } catch (err) {
+    console.warn(err)
     res.status(500).json({ error: "Failed to fetch reviews" });
   }
 }
