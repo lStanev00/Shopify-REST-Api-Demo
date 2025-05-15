@@ -13,7 +13,7 @@ async function getProduct(req, res) {
     const data = await storefront.fetchProductByHandle(name);
     if (data) {
       const local = await Product.findOne({slug:name}).populate(`reviews`).lean();
-      data.reviews = local?.reviews;
+      data.reviews = (local?.reviews).sort((a,b) => b.rating - a.rating);
       return res.status(200).json(data);
     }
     return res.status(500).end();
