@@ -1,3 +1,4 @@
+import Product from "../Models/Product.js";
 import Review from "../Models/Review.js";
 import { Router } from "express";
 
@@ -18,12 +19,18 @@ async function getReviews(req, res) {
 }
 
 async function postReview(req, res) {
+    const visitorId = req?.headers["x-visitor-id"];
+    if(!visitorId) return res.status(403).end();
     try {
         const { productId } = req.params;
-        const review = new Review({ ...req.body, productId });
+
+        const product = await Product.findOne({productId:productId})
+        const review = new Review({ ...req.body, product: product._id, visitorId: visitorId });
         await review.save();
-        res.status(201).json(review);
-    } catch (err) {
+
+        res.status(201).json(review.toObject());
+    } catch (error) {
+        console.warn(error)
         res.status(400).json({ error: 'Failed to submit review' });
     }
 }
