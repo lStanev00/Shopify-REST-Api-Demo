@@ -20,7 +20,7 @@ This project is a React-based product review widget designed to be embedded in S
 - [x]  Email
 - [x]  Star rating
 - [x]  Title & content
-- [ ]  Photo upload
+- [x]  Photo upload
 - [x] Like/Dislike reviews
 - [ ] Filter reviews by star rating
 - [ ] Sort reviews:
