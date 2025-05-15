@@ -14,14 +14,14 @@ This project is a React-based product review widget designed to be embedded in S
 
 ##  Features
 
-- [ ] Dynamic product data fetched from Shopify (title, image, price, etc.)
-- [ ] Review form:
-- [ ]  Name
-- [ ]  Email
-- [ ]  Star rating
-- [ ]  Title & content
+- [x] Dynamic product data fetched from Shopify (title, image, price, etc.)
+- [x] Review form:
+- [x]  Name
+- [x]  Email
+- [x]  Star rating
+- [x]  Title & content
 - [ ]  Photo upload
-- [ ] Like/Dislike reviews
+- [x] Like/Dislike reviews
 - [ ] Filter reviews by star rating
 - [ ] Sort reviews:
 - [ ] Highest rating (default)
@@ -29,5 +29,5 @@ This project is a React-based product review widget designed to be embedded in S
 - [ ]  Only pictures
 - [ ]  Most helpful
 - [ ] Pagination (10 reviews per page)
-- [ ] Review data stored in MongoDB
+- [x] Review data stored in MongoDB
 - [ ] Image stored as base64 or uploaded to Express `/uploads`
