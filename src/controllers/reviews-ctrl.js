@@ -11,7 +11,7 @@ reviewsController.patch("/reviews/:id/react", reactToReview);
 async function getReviews(req, res) {
   try {
     const { productId } = req.params;
-    const reviews = await Review.find({ product: productId });
+    const reviews = await Review.findOne({ product: productId });
     res.json(reviews);
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch reviews" });
