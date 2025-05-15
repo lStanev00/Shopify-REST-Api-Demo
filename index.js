@@ -12,6 +12,7 @@ const app = express();
 app.set('trust proxy', true);
 const PORT = process.env.PORT || 8080;
 await connectDB();
+app.use(express.json());
 
 app.use(cors());
 app.use(express.json());
