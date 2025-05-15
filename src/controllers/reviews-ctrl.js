@@ -4,6 +4,7 @@ import { Router } from "express";
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../helpers/cloudinary-config.js";
+import { delay } from "../helpers/delay.js";
 
 const storage = new CloudinaryStorage({
     cloudinary,
@@ -70,7 +71,6 @@ async function reactToReview(req, res) {
 
     if (!review) return res.status(404).json({ error: "Review not found" });
 
-    console.log(type);
     let trigger = false;
     if (review?.votes[visitorId]?.type == type) {
       delete review.votes[visitorId];
@@ -86,6 +86,7 @@ async function reactToReview(req, res) {
     if (trigger) review.markModified("votes");
 
     await review.save();
+    delay(500)
     const newObj = await Review.findById(review._id).lean();
     res.status(200).json(newObj);
   } catch (err) {
