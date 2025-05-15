@@ -1,11 +1,24 @@
 import Product from "../Models/Product.js";
 import Review from "../Models/Review.js";
 import { Router } from "express";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import cloudinary from "../helpers/cloudinary-config.js";
+
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "review-images",
+        allowed_formats: ["jpg", "png", "webp"],
+    },
+});
+
+const upload = multer({ storage });
 
 const reviewsController = Router();
 
 reviewsController.get("/reviews/:productId", getReviews);
-reviewsController.post("/reviews/:productId", postReview);
+reviewsController.post("/reviews/:productId", upload.array("images", 4), postReview);
 reviewsController.patch("/reviews/:id/react", reactToReview);
 
 async function getReviews(req, res) {
@@ -26,12 +39,15 @@ async function postReview(req, res) {
   if (!visitorId) return res.status(403).end();
   try {
     const { productId } = req.params;
+    const imageUrls = req.files?.map(file => file.path) || [];
+    if (req.body && req.body.rating != null) req.body.rating = Number(req.body.rating);
 
     const product = await Product.findOne({ productId: productId });
     const review = new Review({
       ...req.body,
       product: product._id,
       visitorId: visitorId,
+      media: imageUrls,
     });
     await review.save();
 
