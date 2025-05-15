@@ -52,10 +52,13 @@ async function reactToReview(req, res) {
 
     console.log(type);
     let trigger = false;
-    if (review?.votes[visitorId]?.type == type) delete review.votes[visitorId];
-    else if (type == "like") {
+    if (review.votes.get(visitorId)?.type == type) {
+        console.log("entering")
+      delete review.votes.delete(visitorId);
+      trigger = true;
+    } else if (type == "like") {
       review.votes.set(visitorId, { type: "like" });
-      trigger = true
+      trigger = true;
     } else if (type == "dislike") {
       review.votes(visitorId, { type: "dislike" });
       trigger = true;
@@ -63,12 +66,11 @@ async function reactToReview(req, res) {
 
     if (trigger) review.markModified("votes");
 
-    
-    console.log(review);
     await review.save();
-    res.json(review.toObject());
+    const newObj = await Review.findById(review._id).lean();
+    res.status(200).json(newObj);
   } catch (err) {
-    res.status(400).json({ error: "Failed to react to review" });
+    res.status(500).json({ error: "Failed to react to review" });
   }
 }
 
