@@ -67,14 +67,24 @@ async function reactToReview(req, res) {
 
     const { id } = req.params;
     const { type } = req.body;
+    console.log(req.body)
     const review = await Review.findById(id);
 
     if (!review) return res.status(404).json({ error: "Review not found" });
 
+    const exist = review?.votes;
+
     let trigger = false;
-    if (review?.votes[visitorId]?.type == type) {
-      delete review.votes[visitorId];
-      trigger = true;
+    if(!exist) {
+      trigger= true
+      review.votes = {[visitorId]:type};
+    }
+
+    if(exist) {
+      if (review?.votes[visitorId] == type) {
+        delete review.votes[visitorId];
+        trigger = true;
+    }
     } else if (type == "like") {
       review.votes[visitorId] = `like`;
       trigger = true;
