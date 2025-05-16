@@ -1,10 +1,5 @@
 # Shopify-REST-Api-Demo
-Demo project showcasing a React-based product review widget integrated into a Shopify product page.
-
-# Shopify REST API Demo – Product Review Widget
-
-This project is a React-based product review widget designed to be embedded in Shopify product pages. It allows users to view and submit product reviews, including star ratings, images, and feedback.
-
+This API is made for consumption of a producn shopify page.
 ## Tech Stack
 
 - **Frontend:** React + Vite
