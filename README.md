@@ -4,8 +4,8 @@ This API is made for consumption of a product shopify page.
 
 - **Frontend:** React + Vite
 - **Backend:** Express.js + MongoDB Atlas
-- **Image Upload:** Base64 
-- **Deployment:** Railway, (Express), Shopify Theme (widget)
+- **Image Upload:** Cloudinary + Multer 
+- **Deployment:** Railway, Express, Shopify Theme (widget)
 
 ##  Features
 
