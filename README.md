@@ -1,5 +1,6 @@
 # Shopify-REST-Api-Demo
 This API is made for consumption of a product shopify page.
+
 ## Tech Stack
 
 - **Frontend:** React + Vite
